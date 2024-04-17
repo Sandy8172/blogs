@@ -12,6 +12,9 @@ import Profilepage from "./pages/Profilepage";
 import Navbar from "./widgets/layout/Navbar";
 import Description from "./features/description/components/Description";
 import Summary from "./features/description/components/Summary";
+import AdminForm from "./features/admin/components/AdminForm";
+import BlogList from "./features/admin/components/BlogList";
+import DialogEdit from "./features/admin/components/DialogEdit";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,18 @@ const router = createBrowserRouter([
   {
     path: `/summary/:postID`,
     element: <Summary/>,
+  },
+  {
+    path: `/admin-form`,
+    element: <AdminForm/>,
+  },
+  {
+    path: `/admin-list`,
+    element: <BlogList/>,
+  },
+  {
+    path: `/admin-blog/:blogDetails`,
+    element: <DialogEdit/>,
   },
 
 ]);

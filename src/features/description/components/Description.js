@@ -112,7 +112,7 @@ const Description = () => {
             From the blog
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
-            Here's some interesting stories from my recent travel.
+            Here's some interesting stories from my {title}.
           </p>
         </div>
         <div className="mx-auto mt-4 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-6 sm:mt-4 sm:pt-6 lg:mx-0 lg:max-w-none lg:grid-cols-3">

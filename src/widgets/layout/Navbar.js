@@ -42,6 +42,16 @@ export function Navbar() {
           PROFILE
         </Link>
       </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="inherit"
+        className="capitalize"
+      >
+        <Link to={"/profile"} className="flex items-center gap-1 p-1 font-bold">
+          ADMIN PANEL
+        </Link>
+      </Typography>
     </ul>
   );
 
