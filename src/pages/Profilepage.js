@@ -10,7 +10,7 @@ export function Profilepage() {
   return (
     <>
       <section className="relative block h-[50vh]">
-        <div className="bg-profile-background absolute top-0 h-full w-full bg-black bg-cover bg-center scale-105" />
+        <div className="bg-profile-background absolute top-0 h-full w-full bg-black bg-cover bg-center scale-100" />
         <div className="absolute top-0 h-full w-full bg-black/60 bg-cover bg-center" />
       </section>
       <section className="relative bg-white py-16">
@@ -20,22 +20,29 @@ export function Profilepage() {
               <div className="relative flex gap-6 items-start">
                 <div className="-mt-20 w-40">
                   <Avatar
-                    src="/img/team-5.png"
-                    alt="Profile picture"
-                    variant="circular"
-                    className="h-full w-full"
+                    src="https://docs.material-tailwind.com/img/face-2.jpg"
+                    alt="avatar"
+                    size="xxl"
                   />
                 </div>
                 <div className="flex flex-col mt-2">
                   <Typography variant="h4" color="blue-gray">
                     Jenna Stones
                   </Typography>
-                  <Typography variant="paragraph" color="gray" className="!mt-0 font-normal">jena@mail.com</Typography>
+                  <Typography
+                    variant="paragraph"
+                    color="gray"
+                    className="!mt-0 font-normal"
+                  >
+                    jena@mail.com
+                  </Typography>
                 </div>
               </div>
 
               <div className="mt-10 mb-10 flex lg:flex-col justify-between items-center lg:justify-end lg:mb-0 lg:px-4 flex-wrap lg:-mt-5">
-                <Button className="bg-gray-900 w-fit lg:ml-auto">Conntect</Button>
+                <Button className="bg-gray-900 w-fit lg:ml-auto">
+                  Conntect
+                </Button>
                 <div className="flex justify-start py-4 pt-8 lg:pt-4">
                   <div className="mr-4 p-3 text-center">
                     <Typography
@@ -83,7 +90,6 @@ export function Profilepage() {
                     </Typography>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className="-mt-4 container space-y-2">
@@ -110,23 +116,19 @@ export function Profilepage() {
               <div className="flex w-full flex-col items-start lg:w-1/2">
                 <Typography className="mb-6 font-normal text-blue-gray-500">
                   An artist of considerable range, Jenna the name taken by
-                  Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                  performs and records all of his own music, giving it a
-                  warm, intimate feel with a solid groove structure. An
-                  artist of considerable range.
+                  Melbourne-raised, Brooklyn-based Nick Murphy writes, performs
+                  and records all of his own music, giving it a warm, intimate
+                  feel with a solid groove structure. An artist of considerable
+                  range.
                 </Typography>
-                <Button variant="text">Show more</Button>
               </div>
             </div>
           </div>
-
-
         </div>
       </section>
       <div className="bg-white">
         <Footer />
       </div>
-
     </>
   );
 }

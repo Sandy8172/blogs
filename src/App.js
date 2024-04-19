@@ -15,6 +15,7 @@ import Summary from "./features/description/components/Summary";
 import AdminForm from "./features/admin/components/AdminForm";
 import BlogList from "./features/admin/components/BlogList";
 import DialogEdit from "./features/admin/components/DialogEdit";
+import AdminPage from "./pages/AdminPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: `/summary/:postID`,
     element: <Summary/>,
+  },
+  {
+    path: `/admin-panel`,
+    element: <><Navbar/><AdminPage/></>,
   },
   {
     path: `/admin-form`,

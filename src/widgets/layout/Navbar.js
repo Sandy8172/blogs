@@ -48,7 +48,7 @@ export function Navbar() {
         color="inherit"
         className="capitalize"
       >
-        <Link to={"/profile"} className="flex items-center gap-1 p-1 font-bold">
+        <Link to={"/admin-panel"} className="flex items-center gap-1 p-1 font-bold">
           ADMIN PANEL
         </Link>
       </Typography>
