@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchAsync, selectData, filterPost } from "../descriptionSlice";
+import { blogByIdAsync, blogById } from "../descriptionSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Summary = () => {
   const { postID } = useParams();
-  const userID = postID.split(":")[1];
+  const blogId = postID.split(":")[2];
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchAsync());
+    dispatch(blogByIdAsync(blogId));
     return () => {};
   }, []);
 
-  const data = useSelector(selectData);
-  const post = data.filter((ele) => ele.id == userID);
+  const post = useSelector(blogById);
 
   return (
     <div className="relative isolate overflow-hidden bg-white lg:overflow-visible mt-16 ">
@@ -25,16 +24,24 @@ const Summary = () => {
                 Enjoy Reading
               </p>
               <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {post[0]?.title}
+                {post?.title}
               </h1>
               <p className="mt-2 text-xl leading-8 text-gray-700">
                 By Sandeep Singh
               </p>
             </div>
+            <div className="flex items-center gap-x-4 text-xs">
+              <p
+                //   href={post.category.href}
+                className=" rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+              >
+                {post?.genre}
+              </p>
+            </div>
             <div className="lg:mx-auto  mt-10">
               <div className="lg:pr-4">
                 <div className=" text-base leading-7 text-gray-700 ">
-                  <p>{post[0]?.body}</p>
+                  <p>{post?.summary}</p>
 
                   <p className="mt-8">
                     Et vitae blandit facilisi magna lacus commodo. Vitae sapien
@@ -82,9 +89,13 @@ const Summary = () => {
                 <span className="text-sm text-gray-500">Follow on :</span>
                 <ul className="flex-1 flex flex-wrap gap-8  text-sm font-medium text-gray-500">
                   <li>
-                    <a href="https://twitter.com" target="_blank" className="hover:underline me-4 md:me-6">
+                    <a
+                      href="https://twitter.com"
+                      target="_blank"
+                      className="hover:underline me-4 md:me-6"
+                    >
                       <svg
-                        class="w-6 h-6 text-gray-500 dark:text-white"
+                        className="w-6 h-6 text-gray-500 dark:text-white"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -98,7 +109,11 @@ const Summary = () => {
                   </li>
 
                   <li>
-                    <a href="https://instagram.com" target="_blank" className="hover:underline me-4 md:me-6">
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      className="hover:underline me-4 md:me-6"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 16 16"
@@ -112,9 +127,9 @@ const Summary = () => {
                           y2="1.464"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop offset="0" stop-color="#FFC107"></stop>
-                          <stop offset=".507" stop-color="#F44336"></stop>
-                          <stop offset=".99" stop-color="#9C27B0"></stop>
+                          <stop offset="0" stopColor="#FFC107"></stop>
+                          <stop offset=".507" stopColor="#F44336"></stop>
+                          <stop offset=".99" stopColor="#9C27B0"></stop>
                         </linearGradient>
                         <path
                           fill="url(#a)"
@@ -128,9 +143,9 @@ const Summary = () => {
                           y2="5.172"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop offset="0" stop-color="#FFC107"></stop>
-                          <stop offset=".507" stop-color="#F44336"></stop>
-                          <stop offset=".99" stop-color="#9C27B0"></stop>
+                          <stop offset="0" stopColor="#FFC107"></stop>
+                          <stop offset=".507" stopColor="#F44336"></stop>
+                          <stop offset=".99" stopColor="#9C27B0"></stop>
                         </linearGradient>
                         <path
                           fill="url(#b)"
@@ -144,9 +159,9 @@ const Summary = () => {
                           y2="3.323"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop offset="0" stop-color="#FFC107"></stop>
-                          <stop offset=".507" stop-color="#F44336"></stop>
-                          <stop offset=".99" stop-color="#9C27B0"></stop>
+                          <stop offset="0" stopColor="#FFC107"></stop>
+                          <stop offset=".507" stopColor="#F44336"></stop>
+                          <stop offset=".99" stopColor="#9C27B0"></stop>
                         </linearGradient>
                         <circle
                           cx="12.3"
@@ -158,7 +173,11 @@ const Summary = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="https://youtube.com" target="_blank" className="hover:underline me-4 md:me-6">
+                    <a
+                      href="https://youtube.com"
+                      target="_blank"
+                      className="hover:underline me-4 md:me-6"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="28"

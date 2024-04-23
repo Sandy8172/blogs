@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import {
   Navbar as MTNavbar,
   Typography,
-  Button,
-  MobileNav,
   IconButton,
   Collapse,
 } from "@material-tailwind/react";
@@ -78,12 +76,12 @@ export function Navbar() {
           )}
         </IconButton>
       </div>
-      <MobileNav
-        className="rounded-xl bg-white px-4 pt-2 text-gray-900 hover:text-blue-gray-700"
+      <Collapse 
+        className="rounded-xl bg-white px-4 text-gray-900 hover:text-blue-gray-700"
         open={openNav}
       >
         <div className="container mx-auto">{navList}</div>
-      </MobileNav>
+      </Collapse >
     </MTNavbar>
   );
 }

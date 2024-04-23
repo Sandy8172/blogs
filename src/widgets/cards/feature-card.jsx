@@ -9,9 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export function FeatureCard({ color, icon, title, description }) {
   const navigate = useNavigate();
-  const handleClick = (title) => {
-    console.log("clicked", title);
-    
+  const handleClick = (title) => {    
     navigate(`/description-page/:${title}`)
 
   }

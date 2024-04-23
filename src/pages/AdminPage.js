@@ -5,7 +5,16 @@ import {
   BuildingLibraryIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import { blogsCount, blogsCountAsync } from "../features/admin/adminSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 const AdminPage = () => {
+  const count = useSelector(blogsCount);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(blogsCountAsync());
+  }, []);
+
   return (
     <>
       <section className="relative block h-[50vh]">
@@ -59,7 +68,7 @@ const AdminPage = () => {
                       color="blue-gray"
                       className="font-bold uppercase"
                     >
-                      22
+                      {count.travelCount}
                     </Typography>
                     <Typography
                       variant="small"
@@ -74,7 +83,7 @@ const AdminPage = () => {
                       color="blue-gray"
                       className="font-bold uppercase"
                     >
-                      10
+                      {count.readingCount}
                     </Typography>
                     <Typography
                       variant="small"
@@ -89,13 +98,13 @@ const AdminPage = () => {
                       color="blue-gray"
                       className="font-bold uppercase"
                     >
-                      10
+                      {count.personalCount}
                     </Typography>
                     <Typography
                       variant="small"
                       className="font-normal text-blue-gray-500"
                     >
-                      personal
+                      Personal
                     </Typography>
                   </div>
                   <div className="p-3 text-center lg:mr-4">
@@ -104,7 +113,7 @@ const AdminPage = () => {
                       color="blue-gray"
                       className="font-bold uppercase"
                     >
-                      42
+                      {count.totalCount}
                     </Typography>
                     <Typography
                       variant="small"

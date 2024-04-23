@@ -1,17 +1,48 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchList } from "./adminAPI";
+import {
+  fetchList,
+  deleteBlog,
+  fetchBlogByID,
+  getBlogsCount,
+} from "./adminAPI";
 
 const initialState = {
   blogList: [],
+  bolgById: {},
   value: 0,
   status: "idle",
+  deletedBlog: {},
+  blogsCount: {},
 };
-
 
 export const blogListAsync = createAsyncThunk(
   "admin/blogList",
+  async (type) => {
+    const response = await fetchList(type);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const blogByIdAsync = createAsyncThunk(
+  "admin/blogById",
+  async (blogId) => {
+    const response = await fetchBlogByID(blogId);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const deleteBlogAsync = createAsyncThunk(
+  "admin/deleteBlog",
+  async (id) => {
+    const response = await deleteBlog(id);
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const blogsCountAsync = createAsyncThunk(
+  "admin/blogsCount",
   async () => {
-    const response = await fetchList();
+    const response = await getBlogsCount();
     // The value we return becomes the `fulfilled` action payload
     return response;
   }
@@ -47,6 +78,27 @@ export const adminSlice = createSlice({
       .addCase(blogListAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.blogList = action.payload;
+      })
+      .addCase(blogByIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(blogByIdAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.bolgById = action.payload;
+      })
+      .addCase(deleteBlogAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteBlogAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.deletedBlog = action.payload;
+      })
+      .addCase(blogsCountAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(blogsCountAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.blogsCount = action.payload;
       });
   },
 });
@@ -57,6 +109,8 @@ export const { increment, decrement, incrementByAmount } = adminSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const blogList = (state) => state.admin.blogList;
-
+export const bolgById = (state) => state.admin.bolgById;
+export const deletedBlog = (state) => state.admin.deletedBlog;
+export const blogsCount = (state) => state.admin.blogsCount;
 
 export default adminSlice.reducer;

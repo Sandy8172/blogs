@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchData } from "./descriptionAPI";
+import { fetchData, fetchBlogByID } from "./descriptionAPI";
 
 const initialState = {
   value: 0,
   status: "idle",
   data: [],
+  blogById: {},
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -15,10 +16,22 @@ const initialState = {
 
 export const fetchAsync = createAsyncThunk(
   "description/fetchData",
-  async () => {
+  async (type) => {
     try {
-      const response = await fetchData();
-      return response.data;
+      const response = await fetchData(type);
+      return response;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  }
+);
+export const blogByIdAsync = createAsyncThunk(
+  "description/blogById",
+  async (blogId) => {
+    try {
+      const response = await fetchBlogByID(blogId);
+      return response;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -44,9 +57,19 @@ export const descriptionSlice = createSlice({
       })
       .addCase(fetchAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload.posts;
+        state.data = action.payload;
       })
       .addCase(fetchAsync.rejected, (state, action) => {
+        state.status = "error";
+      })
+      .addCase(blogByIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(blogByIdAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.blogById = action.payload;
+      })
+      .addCase(blogByIdAsync.rejected, (state, action) => {
         state.status = "error";
       });
   },
@@ -58,6 +81,7 @@ export const { filterPost } = descriptionSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectData = (state) => state.description.data;
+export const blogById = (state) => state.description.blogById;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
