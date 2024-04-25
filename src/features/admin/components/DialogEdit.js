@@ -4,20 +4,49 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { blogByIdAsync, bolgById } from "../adminSlice";
+import {
+  blogByIdAsync,
+  updateBlogAsync,
+  bolgById,
+  updatedBlog,
+} from "../adminSlice";
 
 const DialogEdit = () => {
   const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    summary: "",
+  });
+  const data = useSelector(bolgById);
   const cancelButtonRef = useRef(null);
+  const dispatch = useDispatch();
+
   const { blogDetails } = useParams();
   const blogId = blogDetails.split(":")[2];
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(blogByIdAsync(blogId));
     return () => {};
-  }, []);
+  }, [dispatch]);
 
-  const data = useSelector(bolgById);
+  const onFormChangeHandle = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const body = { title: formData.title, summary: formData.summary };
+    dispatch(updateBlogAsync({ blogId, body }));
+    setFormData({
+      title: "",
+      summary: "",
+    });
+    setTimeout(() => {
+      dispatch(blogByIdAsync(blogId));
+    }, 500);
+  };
+
   return (
     <>
       <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
@@ -59,7 +88,10 @@ const DialogEdit = () => {
             <p className="text-center font-mono text-lg mb-4 font-semibold text-teal-800">
               Want to update your thoughts . . .
             </p>
-            <form className=" max-w-none rounded-xl bg-gray-100 shadow-xl ring-1 ring-gray-400/10 text-white p-8">
+            <form
+              onSubmit={handleFormSubmit}
+              className=" max-w-none rounded-xl bg-gray-100 shadow-xl ring-1 ring-gray-400/10 text-white p-8"
+            >
               <div className="mb-5">
                 <label
                   htmlFor="title"
@@ -69,6 +101,9 @@ const DialogEdit = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="title"
+                  value={formData.title}
+                  onChange={onFormChangeHandle}
                   rows="2"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Leave a title..."
@@ -82,7 +117,10 @@ const DialogEdit = () => {
                   Summary :
                 </label>
                 <textarea
-                  id="message"
+                  id="summary"
+                  name="summary"
+                  value={formData.summary}
+                  onChange={onFormChangeHandle}
                   rows="6"
                   className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Leave a summary..."
@@ -90,7 +128,7 @@ const DialogEdit = () => {
               </div>
               <div className="flex justify-end">
                 <button
-                  type="button"
+                  type="submit"
                   className="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                 >
                   Update

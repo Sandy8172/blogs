@@ -4,7 +4,7 @@ export function fetchData(type) {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.get(
-        `http://localhost:3080/get/blog/list/:${type}`
+        `/get/blog/list/:${type}`
       );
       resolve(response.data);
     } catch (error) {
@@ -18,7 +18,7 @@ export function fetchBlogByID(id) {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.get(
-        `http://localhost:3080/get/blogBYid/${id}`
+        `/get/blogBYid/${id}`
       );
       const data = response.data;
       resolve(data);

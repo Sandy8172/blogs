@@ -16,44 +16,60 @@ import AdminForm from "./features/admin/components/AdminForm";
 import BlogList from "./features/admin/components/BlogList";
 import DialogEdit from "./features/admin/components/DialogEdit";
 import AdminPage from "./pages/AdminPage";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<><Navbar/> <Homepage /> </> ,
+    element: (
+      <>
+        <Navbar /> <Homepage />
+      </>
+    ),
   },
   {
     path: "/profile",
-    element: <><Navbar/><Profilepage/></>,
+    element: (
+      <>
+        <Navbar />
+        <Profilepage />
+      </>
+    ),
   },
   {
     path: "/description-page/:title",
-    element: <Description/>,
+    element: <Description />,
   },
   {
     path: `/summary/:postID`,
-    element: <Summary/>,
+    element: <Summary />,
   },
   {
     path: `/admin-panel`,
-    element: <><Navbar/><AdminPage/></>,
+    element: (
+      <>
+        <Navbar />
+        <AdminPage />
+      </>
+    ),
   },
   {
     path: `/admin-form`,
-    element: <AdminForm/>,
+    element: <AdminForm />,
   },
   {
     path: `/admin-list`,
-    element: <BlogList/>,
+    element: <BlogList />,
   },
   {
     path: `/admin-blog/:blogDetails`,
-    element: <DialogEdit/>,
+    element: <DialogEdit />,
   },
-
 ]);
 
 function App() {
+  axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
+
   return (
     <div className="">
       <RouterProvider router={router} />

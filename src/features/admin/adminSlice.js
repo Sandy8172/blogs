@@ -4,6 +4,7 @@ import {
   deleteBlog,
   fetchBlogByID,
   getBlogsCount,
+  updateBlog,
 } from "./adminAPI";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   status: "idle",
   deletedBlog: {},
   blogsCount: {},
+  updatedBlog:{}
 };
 
 export const blogListAsync = createAsyncThunk(
@@ -43,6 +45,14 @@ export const blogsCountAsync = createAsyncThunk(
   "admin/blogsCount",
   async () => {
     const response = await getBlogsCount();
+    // The value we return becomes the `fulfilled` action payload
+    return response;
+  }
+);
+export const updateBlogAsync = createAsyncThunk(
+  "admin/blogsUpdate",
+  async (payload) => {
+    const response = await updateBlog(payload);
     // The value we return becomes the `fulfilled` action payload
     return response;
   }
@@ -99,7 +109,14 @@ export const adminSlice = createSlice({
       .addCase(blogsCountAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.blogsCount = action.payload;
-      });
+      })
+      .addCase(updateBlogAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateBlogAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.updatedBlog = action.payload;
+      })
   },
 });
 
@@ -112,5 +129,6 @@ export const blogList = (state) => state.admin.blogList;
 export const bolgById = (state) => state.admin.bolgById;
 export const deletedBlog = (state) => state.admin.deletedBlog;
 export const blogsCount = (state) => state.admin.blogsCount;
+export const updatedBlog = (state) => state.admin.updatedBlog;
 
 export default adminSlice.reducer;
